@@ -33,6 +33,9 @@ class ViewController: UIViewController {
     @IBOutlet var fourthItemName: UITextField!
     @IBOutlet var fifthItemName: UITextField!
     
+    @IBOutlet var scrollView: UIScrollView!
+    @IBOutlet var scrollViewContainer: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -40,6 +43,8 @@ class ViewController: UIViewController {
         //firstItemStepper.isContinuous = true
         //firstItemQuantity.text = firstItemStepper.value.description
     }
+    
+   
     
     @IBAction func firstStepperPressed(_ sender: UIStepper) {
         
@@ -55,6 +60,7 @@ class ViewController: UIViewController {
     }
     
     
+    
     @IBAction func cancelButtonPressed(_ sender: UIButton) {
     
         listName.text = "Shopping List"
@@ -62,23 +68,44 @@ class ViewController: UIViewController {
         firstItemStepper.value = 0.0
         firstItemQuantity.text = "0"
         firstItemName.text = " "
+        firstItemName.placeholder = "Item name"
         
         seconItemStepper.value = 0.0
         secondItemQuantity.text = "0"
         secondItemName.text = " "
+        firstItemName.placeholder = "Item name"
         
         thirdItemStepper.value = 0.0
         thirdItemQuantity.text = "0"
         thirdItemName.text = " "
+        firstItemName.placeholder = "Item name"
         
         fourItemStepper.value = 0.0
         fourthItemQuantity.text = "0"
         fourthItemName.text = " "
+        firstItemName.placeholder = "Item name"
         
         fifthItemStepper.value = 0.0
         fifthItemQuantity.text = "0"
         fifthItemName.text = " "
+        firstItemName.placeholder = "Item name"
     }
+ 
+    
+    @IBAction func saveShoppingItemsOnButtonPressed(_ sender: UIButton) {
+    
+        let userDefaults = UserDefaults.standard
+        var shoppingItemList = [String]()
+        
+        shoppingItemList += [String(firstItemName.text!)]
+        shoppingItemList += [String(secondItemName.text!)]
+        shoppingItemList += [String(thirdItemName.text!)]
+        shoppingItemList += [String(fourthItemName.text!)]
+        shoppingItemList += [String(fifthItemName.text!)]
+        print(shoppingItemList)
+        userDefaults.set(shoppingItemList, forKey: "ShoppingListItems")
+    }
+
     
 }
 
