@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
     
  
     @IBOutlet var firstItemStepper: UIStepper!
@@ -38,13 +38,24 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.firstItemName.delegate = self
+        self.secondItemName.delegate = self
+        self.thirdItemName.delegate = self
+        self.fourthItemName.delegate = self
+        self.fifthItemName.delegate = self
+        self.listName.delegate = self
         // Do any additional setup after loading the view.
        // firstItemStepper.autorepeat = true
         //firstItemStepper.isContinuous = true
         //firstItemQuantity.text = firstItemStepper.value.description
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+           return true
+    }
    
+
     
     @IBAction func firstStepperPressed(_ sender: UIStepper) {
         
@@ -67,27 +78,27 @@ class ViewController: UIViewController {
         
         firstItemStepper.value = 0.0
         firstItemQuantity.text = "0"
-        firstItemName.text = " "
+        firstItemName.text = ""
         firstItemName.placeholder = "Item name"
         
         seconItemStepper.value = 0.0
         secondItemQuantity.text = "0"
-        secondItemName.text = " "
+        secondItemName.text = ""
         secondItemName.placeholder = "Item name"
         
         thirdItemStepper.value = 0.0
         thirdItemQuantity.text = "0"
-        thirdItemName.text = " "
+        thirdItemName.text = ""
         thirdItemName.placeholder = "Item name"
         
         fourItemStepper.value = 0.0
         fourthItemQuantity.text = "0"
-        fourthItemName.text = " "
+        fourthItemName.text = ""
         fourthItemName.placeholder = "Item name"
         
         fifthItemStepper.value = 0.0
         fifthItemQuantity.text = "0"
-        fifthItemName.text = " "
+        fifthItemName.text = ""
         fifthItemName.placeholder = "Item name"
     }
  
@@ -101,9 +112,14 @@ class ViewController: UIViewController {
         shoppingItemList += [String(secondItemName.text!)]
         shoppingItemList += [String(thirdItemName.text!)]
         shoppingItemList += [String(fourthItemName.text!)]
-        shoppingItemList += [String(fifthItemName.text!)]
+        shoppingItemList +=  [String(fifthItemName.text!)]
+        let count:Int = shoppingItemList.count
+        print(count)
+        
         print(shoppingItemList)
+        
         userDefaults.set(shoppingItemList, forKey: "ShoppingListItems")
+        userDefaults.set(count, forKey: "ShoppingListItemsCount")
     }
 
     

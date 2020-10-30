@@ -6,9 +6,9 @@
 //
 
 import UIKit
+//import  SwipeCellKit
 
-class SaveViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
+class SaveViewController: SwipeLeftTableViewController {
     
     @IBOutlet var ShoppingItemListTableView: UITableView!
 
@@ -20,19 +20,33 @@ class SaveViewController: UIViewController, UITableViewDelegate, UITableViewData
 
         // Do any additional setup after loading the view.
     }
+    let userDefaults = UserDefaults.standard
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let arraycount = userDefaults.integer(forKey: "ShoppingListItemsCount")
+        return arraycount
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let userDefaults = UserDefaults.standard
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+       // let userDefaults = UserDefaults.standard
         let finalItems = userDefaults.array(forKey: "ShoppingListItems")
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath)
+       // let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath)
         //cell.textLabel?.text = "Hello"
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
         cell.textLabel?.text = finalItems![indexPath.row] as? String
         return cell
     }
     
+    override func updateModel(at indexPath: IndexPath) {
+        //let userDefaults = UserDefaults.standard
+        //var finalItems = userDefaults.array(forKey: "ShoppingListItems")
+        ///let keyValue = indexPath
+        //finalItems?.remove(at: keyValue)
+        var finalItems = userDefaults.array(forKey: "ShoppingListItems")
+        finalItems!.remove(at: indexPath.row)
+        userDefaults.set(finalItems, forKey: "ShoppingListItems")
+        userDefaults.set(finalItems?.count, forKey: "ShoppingListItemsCount")
+        userDefaults.synchronize()
+    }
 
 }
