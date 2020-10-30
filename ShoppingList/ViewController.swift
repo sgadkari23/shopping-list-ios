@@ -1,15 +1,17 @@
 //
 //  ViewController.swift
 //  ShoppingList
-//
-//  Created by Supriya Gadkari on 10/28/20.
+//  Name : Supriya Gadkari
+//  Student ID : 301140872
+//  Date : 10/28/20.
+//  Changes Made : add null check to the textbox
 //
 
 import UIKit
-
+// ViewController class for home page
 class ViewController: UIViewController, UITextFieldDelegate {
     
- 
+   // variable declaration for all user inputs
     @IBOutlet var firstItemStepper: UIStepper!
     @IBOutlet var firstItemQuantity: UILabel!
     
@@ -36,6 +38,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var scrollViewContainer: UIView!
     
+    // loads view
     override func viewDidLoad() {
         super.viewDidLoad()
         self.firstItemName.delegate = self
@@ -44,19 +47,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.fourthItemName.delegate = self
         self.fifthItemName.delegate = self
         self.listName.delegate = self
-        // Do any additional setup after loading the view.
-       // firstItemStepper.autorepeat = true
-        //firstItemStepper.isContinuous = true
-        //firstItemQuantity.text = firstItemStepper.value.description
     }
     
+    // hide keyboard
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
            return true
     }
    
-
-    
+    // increment item Quantity
     @IBAction func firstStepperPressed(_ sender: UIStepper) {
         
         firstItemQuantity.text = Int(firstItemStepper.value).description
@@ -70,8 +69,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         fifthItemQuantity.text = Int(fifthItemStepper.value).description
     }
     
-    
-    
+    // reset shoppintlist
     @IBAction func cancelButtonPressed(_ sender: UIButton) {
     
         listName.text = "Shopping List"
@@ -102,21 +100,36 @@ class ViewController: UIViewController, UITextFieldDelegate {
         fifthItemName.placeholder = "Item name"
     }
  
-    
+    // saving list items using UserDefaults
     @IBAction func saveShoppingItemsOnButtonPressed(_ sender: UIButton) {
     
         let userDefaults = UserDefaults.standard
         var shoppingItemList = [String]()
         
-        shoppingItemList += [String(firstItemName.text!)]
-        shoppingItemList += [String(secondItemName.text!)]
-        shoppingItemList += [String(thirdItemName.text!)]
-        shoppingItemList += [String(fourthItemName.text!)]
-        shoppingItemList +=  [String(fifthItemName.text!)]
-        let count:Int = shoppingItemList.count
-        print(count)
+        if(!firstItemName.text!.isEmpty){
+            
+            shoppingItemList += [String(firstItemName.text!)]
+        }
         
-        print(shoppingItemList)
+        if(!secondItemName.text!.isEmpty){
+            
+            shoppingItemList += [String(secondItemName.text!)]
+        }
+        
+        if(!thirdItemName.text!.isEmpty){
+            
+            shoppingItemList += [String(thirdItemName.text!)]
+        }
+        if(!fourthItemName.text!.isEmpty){
+            
+            shoppingItemList += [String(fourthItemName.text!)]
+        }
+        if(!fifthItemName.text!.isEmpty){
+            
+            shoppingItemList += [String(fifthItemName.text!)]
+        }
+        
+        let count:Int = shoppingItemList.count
         
         userDefaults.set(shoppingItemList, forKey: "ShoppingListItems")
         userDefaults.set(count, forKey: "ShoppingListItemsCount")
