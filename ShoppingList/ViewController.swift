@@ -73,22 +73,22 @@ class ViewController: UIViewController {
         seconItemStepper.value = 0.0
         secondItemQuantity.text = "0"
         secondItemName.text = " "
-        firstItemName.placeholder = "Item name"
+        secondItemName.placeholder = "Item name"
         
         thirdItemStepper.value = 0.0
         thirdItemQuantity.text = "0"
         thirdItemName.text = " "
-        firstItemName.placeholder = "Item name"
+        thirdItemName.placeholder = "Item name"
         
         fourItemStepper.value = 0.0
         fourthItemQuantity.text = "0"
         fourthItemName.text = " "
-        firstItemName.placeholder = "Item name"
+        fourthItemName.placeholder = "Item name"
         
         fifthItemStepper.value = 0.0
         fifthItemQuantity.text = "0"
         fifthItemName.text = " "
-        firstItemName.placeholder = "Item name"
+        fifthItemName.placeholder = "Item name"
     }
  
     
